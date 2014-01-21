@@ -1,0 +1,105 @@
+## this is the skeleton of all pages on our site - it defines the basic structure with our menus, sidebars, etc.
+## by naming this file with .htm, it can't be viewed directly (urls.py only allows full .html)
+
+## set up a StaticRenderer object to enable the CSS/JS automatic inclusion magic.
+<%! from base_app import static_files %>
+<%  static_renderer = static_files.StaticRenderer(self) %>
+
+<!DOCTYPE html>
+<html>
+  <meta charset="UTF-8">
+  <head>
+    <title></title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <link href="/static/base_app/styles/bootstrap.css" rel="stylesheet">
+    <script src="/static/base_app/scripts/bootstrap.js"></script>
+
+
+    ## render the css
+    ${ static_renderer.get_template_css(request, context)  }
+  
+  </head>
+  <body>
+  
+    <header>
+        <div class ="row">
+<%block name="header">
+            <nav class="navbar navbar-default" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="/homepage">MyStuff</a>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+      <li><a href="/homepage/about">About Us</a></li>
+      <li><a href="/homepage/terms">Terms</a></li>
+      <li><a href="/homepage/contact">Contact</a></li>
+    </ul>
+    <form class="navbar-form navbar-left" role="search">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search">
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+    </%block>
+
+  </div><!-- /.navbar-collapse -->
+</nav>
+            
+       
+    </header>
+
+
+<div class="row">
+        <div class="col-md-2">
+         <%block name="leftSide">
+        <ul>
+        <a href="/homepage" class="btn btn-primary">Home <span class="badge">42</span></a>
+        <br>
+        <br>
+        <a href="/homepage/about" class="btn btn-success">About Us</a>
+        <br>
+        <br>
+        <a href="/homepage/contact" class="btn btn-warning">Contact</a>
+        <br>
+        <br>
+        <a href="/homepage/terms" class="btn btn-danger">Terms</a>
+        </ul>
+        </%block>
+
+        </div>
+        <div class="navbar navbar-fixed-bottom">
+        <%block name="footer">
+        <button type="button" class="btn btn-default btn-lg">
+  <span class="glyphicon glyphicon-th-large"></span>
+   Copyright 2014 
+</button>
+        </%block> 
+      </div> 
+        <div class="col-md-9">
+        <%block name="center">
+        
+        </%block> 
+        </div>
+
+        <div class="col-md-1">
+        <%block name="right_side">
+        <span class="label label-danger">"I'm a LABEL!"</span>
+        </%block> 
+      </div>
+</div>
+
+  
+    ## render the JS for this page (placed here at the end because browsers apparently load faster when JS is at the end)
+    ${ static_renderer.get_template_js(request, context)  }
+  
+  </body>
+</html>
